@@ -39,12 +39,6 @@
   align-items: flex-end;
 }
 
-.container {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-}
-
 .card-item {
   margin-bottom: 25px;
 }

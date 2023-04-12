@@ -14,7 +14,7 @@
 .scrollableDiv {
   width: 320px;
   height: 485px;
-  overflow: scroll;
+  overflow-y: auto;
 }
 
 .title-fix {
@@ -56,8 +56,4 @@
 }
 .add-scroll::-webkit-scrollbar {
   width: 6px;
-}
-
-.add-scroll::-webkit-scrollbar-thumb {
-  background-color: #888; /* Color of scrollbar thumb */
 }

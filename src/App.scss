@@ -23,9 +23,8 @@ body {
   background-color: #f2f2f2;
 }
 
-.widget-wrapper {
-  display: flex;
-  float: right;
-  flex-direction: row-reverse;
-  position: realtive;
+@media screen and (max-width: 1000px) {
+  .alignment {
+    width: 600;
+  }
 }

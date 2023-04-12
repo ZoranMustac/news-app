@@ -29,55 +29,56 @@ export const NewsCards = (props) => {
         </div>
       </div>
       <h2>News</h2>
+      <div className="news-container">
+        <div className="widget-wrapper">
+          <LatestNewsWidget />
+        </div>
 
-      <div className="widget-wrapper">
-        <LatestNewsWidget />
-      </div>
+        <div className="container">
+          {articles
+            ?.filter((post) => {
+              if (query === '') {
+                return post;
+              } else if (
+                post?.title
+                  ?.toLowerCase()
+                  .includes(query.toLowerCase())
+              ) {
+                return post;
+              }
+            })
+            .map((post, index) => (
+              <Cards
+                key={post.title}
+                title={post.title}
+                author={post.author}
+                urlToImage={post.urlToImage}
+                source={post.source}
+              />
+            ))}
 
-      <div className="container">
-        {articles
-          ?.filter((post) => {
-            if (query === '') {
-              return post;
-            } else if (
-              post?.title
-                ?.toLowerCase()
-                .includes(query.toLowerCase())
-            ) {
-              return post;
-            }
-          })
-          .map((post, index) => (
-            <Cards
-              key={post.title}
-              title={post.title}
-              author={post.author}
-              urlToImage={post.urlToImage}
-              source={post.source}
-            />
-          ))}
-
-        {arrayItems
-          ?.filter((post) => {
-            if (query === '') {
-              return post;
-            } else if (
-              post?.title
-                ?.toLowerCase()
-                .includes(query.toLowerCase())
-            ) {
-              return post;
-            }
-          })
-          .map((post, index) => (
-            <Cards
-              key={post.source?.id}
-              title={post.title}
-              author={post.author}
-              urlToImage={post.urlToImage}
-              source={post.source}
-            />
-          ))}
+          {arrayItems
+            ?.filter((post) => {
+              if (query === '') {
+                return post;
+              } else if (
+                post?.title
+                  ?.toLowerCase()
+                  .includes(query.toLowerCase())
+              ) {
+                return post;
+              }
+            })
+            .map((post, index) => (
+              <Cards
+                key={post.source?.id}
+                title={post.title}
+                author={post.author}
+                urlToImage={post.urlToImage}
+                source={post.source}
+              />
+            ))}
+        </div>
       </div>
     </div>
   );

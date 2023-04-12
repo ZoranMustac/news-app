@@ -58,60 +58,61 @@ export const Cards = (props) => {
   };
 
   return (
-    <Box
-      sx={{
-        marginBottom: '25px',
-      }}
-      key={title}
-    >
-      <Card
-        key={source?.id}
+    <div className="box">
+      <Box
         sx={{
-          width: 320,
-          height: 280,
-          borderRadius: 3,
+          marginBottom: '25px',
         }}
+        key={title}
       >
-        <CardMedia
-          sx={{ height: 120 }}
-          image={
-            urlToImage ??
-            'https://storage.googleapis.com/proudcity/mebanenc/uploads/2021/03/placeholder-image.png'
-          }
-        />
-        <div className="subheader">
-          <CardContent>{source?.name}</CardContent>
-        </div>
-        <div className="header">
-          <p>{title}</p>
-        </div>
-        <div className="one-row">
-          <div className="author">
-            <p>{author ?? 'N/A'}</p>
+        <Card
+          key={title}
+          sx={{
+            width: 320,
+            height: 280,
+            borderRadius: 3,
+          }}
+        >
+          <CardMedia
+            sx={{ height: 120 }}
+            image={
+              urlToImage ??
+              'https://storage.googleapis.com/proudcity/mebanenc/uploads/2021/03/placeholder-image.png'
+            }
+          />
+          <div className="subheader">
+            <CardContent>{source?.name}</CardContent>
           </div>
-          <div className="favorite">
-            <IconButton>
-              {savedState ? (
-                <FavoriteIcon
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setSavedState(false);
-                    deleteBookmark();
-                  }}
-                />
-              ) : (
-                <FavoriteBorderIcon
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setSavedState(true);
-                    addBookmark();
-                  }}
-                />
-              )}
-            </IconButton>
+          <div className="header">
+            <p>{title}</p>
           </div>
-        </div>
-      </Card>
-    </Box>
+          <div className="one-row">
+            <div className="author">
+              <p>{author ?? 'N/A'}</p>
+            </div>
+            <div className="favorite">
+              <IconButton>
+                {savedState ? (
+                  <FavoriteIcon
+                    onClick={(e) => {
+                      setSavedState(false);
+                      deleteBookmark();
+                    }}
+                  />
+                ) : (
+                  <FavoriteBorderIcon
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setSavedState(true);
+                      addBookmark();
+                    }}
+                  />
+                )}
+              </IconButton>
+            </div>
+          </div>
+        </Card>
+      </Box>
+    </div>
   );
 };

@@ -27,8 +27,9 @@
 }
 
 .container {
+  display: flex;
+  justify-content: space-between;
   flex-wrap: wrap;
-  overflow: auto;
 }
 
 .card-item {
@@ -104,4 +105,22 @@ button[type='submit'] {
 .line {
   height: 1px;
   background: rgba(235, 230, 230, 0.705);
+}
+
+@media screen and (max-width: 860px) {
+  .searchButton {
+    visibility: hidden;
+  }
+
+  .search input[type='text'] {
+    border: 0;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+    width: 520px;
+    font-size: 15px;
+    color: rgb(163, 160, 160);
+    &:focus {
+      outline: none;
+    }
+  }
 }

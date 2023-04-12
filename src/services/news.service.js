@@ -5,32 +5,14 @@ export class NewsService {
   apiKey = '&apiKey=57260dde21cb4e81ba6533d409f58c98';
 
   async fetchAll() {
-    const allURLs = [
-      this.URL + 'q=bitcoin' + this.apiKey,
-      this.URL +
-        'q=apple&from=2023-03-18&to=2023-03-18&sortBy=popularity' +
-        this.apiKey,
-      this.URL +
-        'domains=techcrunch.com,thenextweb.com' +
-        this.apiKey,
-      this.URL +
-        'q=tesla&from=2023-02-20&sortBy=publishedAt' +
-        this.apiKey,
-      this.URL + 'domains=wsj.com' + this.apiKey,
-    ];
-    await axios
-      .all(allURLs.map((urls) => axios.get(urls)))
-      .then(
-        axios.spread(
-          (
-            { data: author },
-            { data: title },
-            { data: urlToImage },
-          ) => {
-            return author + title + urlToImage;
-          },
-        ),
-      );
+    const allURLs =
+      `${this.URL}q=bitcoin&pageSize=10${this.apiKey}` +
+      `${this.URL}q=apple&pageSize=10${this.apiKey}` +
+      `${this.URL}domains=techcrunch.com,thenextweb.com&pageSize=10${this.apiKey}` +
+      `${this.URL}q=tesla&from=2023-02-20&sortBy=publishedAt&pageSize=10${this.apiKey}` +
+      `${this.URL}domains=wsj.com&pageSize=10${this.apiKey}`;
+    const res = await axios.get(allURLs);
+    return console.log(res.data);
   }
 
   async fetchBitcoin() {
@@ -47,9 +29,7 @@ export class NewsService {
 
   async fetchApple() {
     const res = await axios.get(
-      this.URL +
-        'q=apple&from=2023-03-18&to=2023-03-18&sortBy=popularity' +
-        this.apiKey,
+      this.URL + 'q=apple' + this.apiKey,
     );
     return res.data;
   }
@@ -63,17 +43,12 @@ export class NewsService {
     return res.data;
   }
 
-  fetchTopHeadlines(setItems, items) {
-    let page = 1;
-    return axios
-      .get(
-        `https://newsapi.org/v2/top-headlines?country=us&category=business&pageSize=10&page=${page}` +
-          this.apiKey,
-      )
-      .then((res) => {
-        setItems([...items, ...res.data]);
-        page = page + 1;
-      });
+  async fetchTopHeadlines() {
+    const res = await axios.get(
+      `https://newsapi.org/v2/top-headlines?country=us&category=business` +
+        this.apiKey,
+    );
+    return res.data;
   }
 
   async fetchHeadline() {

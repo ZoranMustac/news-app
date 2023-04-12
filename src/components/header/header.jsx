@@ -10,6 +10,7 @@ import { NewsCards } from '../newsCards/newsCards';
 import { NewsService } from '../../services/news.service';
 import { FavoritesCards } from '../newsCards/favoritesCards';
 import { TopHeadlinesCards } from '../newsCards/topHeadlinesCards';
+import { Twirl as Hamburger } from 'hamburger-react';
 
 export const Header = () => {
   const [news, setNews] = useState();
@@ -19,15 +20,16 @@ export const Header = () => {
   const [tech, setTech] = useState();
   const [tesla, setTesla] = useState();
   const [headlines, setHeadlines] = useState();
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     const newsService = new NewsService();
-
+    /*
     newsService.fetchAll().then((allNews) => {
       setNews(allNews);
       return allNews;
     });
-
+*/
     newsService.fetchBitcoin().then((bitcoins) => {
       setBitcoin(bitcoins);
       return bitcoins;
@@ -53,7 +55,7 @@ export const Header = () => {
       return wsjArticle;
     });
 
-    newsService.fetchHeadline().then((headline) => {
+    newsService.fetchTopHeadlines().then((headline) => {
       setHeadlines(headline);
       return headline;
     });
@@ -62,11 +64,20 @@ export const Header = () => {
   return (
     <Router>
       <div className="same-line">
+        <div className="hamburger">
+          <Hamburger
+            toggled={isOpen}
+            size={25}
+            rounded
+            toggle={setIsOpen}
+          />
+        </div>
         <h1 className="title">
           <span style={{ color: '#BB1E1E' }}>My</span>
           News
         </h1>
       </div>
+
       <Categories />
 
       <Routes>

@@ -31,7 +31,6 @@ export const FavoritesCards = () => {
         </div>
       </div>
       <h2>Favorites</h2>
-
       <div className="container">
         {items
           ?.filter((post) => {

@@ -13,31 +13,36 @@ export const LatestNewsWidget = () => {
   const [headlines, setHeadlines] = useState();
   const newsService = new NewsService();
   const [displayedArticles, setDisplayedArticles] =
-    useState();
+    useState([]);
+  const [hasMore, setHasMore] = useState(true);
 
   useEffect(() => {
     newsService.fetchHeadline().then((headline) => {
-      setDisplayedArticles(headline);
+      setDisplayedArticles(headline.articles);
+      return headline;
+    });
+
+    newsService.fetchTopHeadlines().then((headline) => {
+      setHeadlines(headline);
       return headline;
     });
   }, []);
 
-  const scrollableDivRef = useRef(null);
-
-  const handleScroll = () => {
-    const { scrollTop, clientHeight, scrollHeight } =
-      scrollableDivRef.current;
-
-    if (scrollTop + clientHeight === scrollHeight) {
-      newsService
-        .fetchHeadline(displayedArticles.length)
-        .then((newArticles) => {
-          setDisplayedArticles((prevArticles) => [
-            ...prevArticles,
-            ...newArticles,
-          ]);
-        });
+  const fetchMoreData = () => {
+    if (
+      displayedArticles.length >= headlines.totalResults
+    ) {
+      setHasMore(false);
+      return;
     }
+    newsService
+      .fetchHeadline(displayedArticles.length + 1)
+      .then((newArticles) => {
+        setDisplayedArticles((prevArticles) => [
+          ...prevArticles,
+          ...newArticles.articles,
+        ]);
+      });
   };
 
   return (
@@ -69,38 +74,36 @@ export const LatestNewsWidget = () => {
 
       <Card square={true} elevation={0}>
         <div className="scrollableDiv">
-          <Box
-            ref={scrollableDivRef}
-            onScroll={handleScroll}
-            style={{
-              width: 320,
-              height: 485,
-            }}
-            className="add-scroll"
+          <InfiniteScroll
+            dataLength={displayedArticles.length}
+            next={fetchMoreData}
+            hasMore={hasMore}
+            loader={<h4>Loading...</h4>}
+            endMessage={
+              <p style={{ textAlign: 'center' }}>
+                <b>No more news to show</b>
+              </p>
+            }
           >
-            {displayedArticles
-              ? displayedArticles.articles.map(
-                  (headlineItem) => {
-                    return (
-                      <>
-                        <div className="time">
-                          <CardContent>
-                            {headlineItem.publishedAt
-                              ?.slice(0, 16)
-                              .split('T')
-                              .join(' ')}
-                          </CardContent>
-                        </div>
-                        <div className="title-fix">
-                          {headlineItem.title}
-                        </div>
-                        <div className="card-line"></div>
-                      </>
-                    );
-                  },
-                )
-              : null}
-          </Box>
+            {displayedArticles.map(
+              (headlineItem, index) => (
+                <React.Fragment key={index}>
+                  <div className="time">
+                    <CardContent>
+                      {headlineItem.publishedAt
+                        ?.slice(0, 16)
+                        .split('T')
+                        .join(' ')}
+                    </CardContent>
+                  </div>
+                  <div className="title-fix">
+                    {headlineItem.title}
+                  </div>
+                  <div className="card-line"></div>
+                </React.Fragment>
+              ),
+            )}
+          </InfiniteScroll>
         </div>
       </Card>
 

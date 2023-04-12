@@ -16,3 +16,14 @@
 .search-move {
   margin-top: -20px;
 }
+
+.hamburger {
+  float: right;
+  height: 0px;
+}
+
+@media screen and (max-width: 480px) {
+  .same-line {
+    text-align: left;
+  }
+}

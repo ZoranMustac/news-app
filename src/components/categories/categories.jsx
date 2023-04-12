@@ -7,6 +7,7 @@ import CurrencyBitcoinIcon from '@mui/icons-material/CurrencyBitcoin';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ComputerIcon from '@mui/icons-material/Computer';
 import ElectricCarIcon from '@mui/icons-material/ElectricCar';
+import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
 import { NavLink } from 'react-router-dom';
 
 export const Categories = () => {
@@ -57,14 +58,10 @@ export const Categories = () => {
               key={iconItem.title}
             >
               <NavLink
-                style={({ isActive, isPending }) => {
+                style={({ isActive }) => {
                   return {
-                    background:
-                      isActive || active ? 'white' : '',
-                    color:
-                      isActive || active
-                        ? '#bb1e1e'
-                        : 'white',
+                    background: isActive ? 'white' : '',
+                    color: isActive ? '#bb1e1e' : 'white',
                   };
                 }}
                 to={iconItem.title}
