@@ -5,14 +5,9 @@ export class NewsService {
   apiKey = '&apiKey=57260dde21cb4e81ba6533d409f58c98';
 
   async fetchAll() {
-    const allURLs =
-      `${this.URL}q=bitcoin&pageSize=10${this.apiKey}` +
-      `${this.URL}q=apple&pageSize=10${this.apiKey}` +
-      `${this.URL}domains=techcrunch.com,thenextweb.com&pageSize=10${this.apiKey}` +
-      `${this.URL}q=tesla&from=2023-02-20&sortBy=publishedAt&pageSize=10${this.apiKey}` +
-      `${this.URL}domains=wsj.com&pageSize=10${this.apiKey}`;
+    const allURLs = `${this.URL}q=everything${this.apiKey}`;
     const res = await axios.get(allURLs);
-    return console.log(res.data);
+    return res.data;
   }
 
   async fetchBitcoin() {
@@ -51,13 +46,11 @@ export class NewsService {
     return res.data;
   }
 
-  async fetchHeadline() {
-    let page = 1;
+  async fetchHeadline(page) {
     const res = await axios.get(
       `https://newsapi.org/v2/top-headlines?country=us&category=business&pageSize=10&page=${page}` +
         this.apiKey,
     );
-    page = page + 1;
     return res.data;
   }
 

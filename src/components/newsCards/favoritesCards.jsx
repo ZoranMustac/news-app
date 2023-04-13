@@ -9,7 +9,7 @@ export const FavoritesCards = () => {
 
   useEffect(() => {
     setItems(JSON.parse(localStorage.getItem('items')));
-  }, []);
+  }, [items]);
 
   return (
     <div className="parent">

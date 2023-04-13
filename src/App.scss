@@ -23,8 +23,20 @@ body {
   background-color: #f2f2f2;
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1110px) {
   .alignment {
-    width: 600;
+    width: 800px;
+  }
+}
+
+@media screen and (max-width: 810px) {
+  .alignment {
+    width: 680px;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .alignment {
+    width: 340px;
   }
 }

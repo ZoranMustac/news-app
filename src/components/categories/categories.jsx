@@ -7,15 +7,10 @@ import CurrencyBitcoinIcon from '@mui/icons-material/CurrencyBitcoin';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ComputerIcon from '@mui/icons-material/Computer';
 import ElectricCarIcon from '@mui/icons-material/ElectricCar';
-import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
 import { NavLink } from 'react-router-dom';
 
 export const Categories = () => {
-  const [active, setActive] = useState(true);
-
-  const handleClick = () => {
-    setActive(!active);
-  };
+  const [activeIndex, setActiveIndex] = useState(0);
 
   const iconArray = [
     {
@@ -48,28 +43,31 @@ export const Categories = () => {
     },
   ];
 
+  const handleClick = (index) => {
+    setActiveIndex(index);
+  };
+
   return (
     <div className="wrapping">
       <div className="push-left">
-        {iconArray.map((iconItem) => {
+        {iconArray.map((iconItem, index) => {
           return (
             <div
               className="activeButton"
               key={iconItem.title}
             >
-              <NavLink
-                style={({ isActive }) => {
-                  return {
-                    background: isActive ? 'white' : '',
-                    color: isActive ? '#bb1e1e' : 'white',
-                  };
-                }}
-                to={iconItem.title}
-                end
-              >
+              <NavLink to={iconItem.title} end>
                 <button
                   className="buttons"
-                  onClick={handleClick}
+                  style={{
+                    backgroundColor:
+                      index === activeIndex ? 'white' : '',
+                    color:
+                      index === activeIndex
+                        ? '#bb1e1e'
+                        : 'rgb(112, 109, 109)',
+                  }}
+                  onClick={() => handleClick(index)}
                 >
                   {iconItem.icon}
                   <br />

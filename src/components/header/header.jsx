@@ -24,12 +24,12 @@ export const Header = () => {
 
   useEffect(() => {
     const newsService = new NewsService();
-    /*
+
     newsService.fetchAll().then((allNews) => {
       setNews(allNews);
       return allNews;
     });
-*/
+
     newsService.fetchBitcoin().then((bitcoins) => {
       setBitcoin(bitcoins);
       return bitcoins;
@@ -78,53 +78,67 @@ export const Header = () => {
         </h1>
       </div>
 
-      <Categories />
+      <div className="categories">
+        <Categories />
+      </div>
 
-      <Routes>
-        <Route
-          path="/Home"
-          element={<NewsCards articles={news?.articles} />}
-        />
-        <Route
-          path="/Apple"
-          element={<NewsCards articles={apple?.articles} />}
-        />
-        <Route
-          path="/WSJ"
-          element={<NewsCards articles={wsj?.articles} />}
-        />
-        <Route
-          path="/Bitcoin"
-          element={
-            <NewsCards articles={bitcoin?.articles} />
-          }
-        />
-        <Route
-          path="/Tech"
-          element={<NewsCards articles={tech?.articles} />}
-        />
-        <Route
-          path="/Tesla"
-          element={<NewsCards articles={tesla?.articles} />}
-        />
-        <Route
-          path="/TopHeadlines"
-          element={
-            <TopHeadlinesCards
-              articles={headlines?.articles}
-            />
-          }
-        />
-        <Route
-          path="/Favorites"
-          element={<FavoritesCards />}
-        />
+      <div className="news-cards">
+        <Routes>
+          <Route
+            path="/Home"
+            element={
+              <NewsCards articles={news?.articles} />
+            }
+          />
+          <Route
+            path="/Apple"
+            element={
+              <NewsCards articles={apple?.articles} />
+            }
+          />
+          <Route
+            path="/WSJ"
+            element={<NewsCards articles={wsj?.articles} />}
+          />
+          <Route
+            path="/Bitcoin"
+            element={
+              <NewsCards articles={bitcoin?.articles} />
+            }
+          />
+          <Route
+            path="/Tech"
+            element={
+              <NewsCards articles={tech?.articles} />
+            }
+          />
+          <Route
+            path="/Tesla"
+            element={
+              <NewsCards articles={tesla?.articles} />
+            }
+          />
+          <Route
+            path="/TopHeadlines"
+            element={
+              <TopHeadlinesCards
+                articles={headlines?.articles}
+              />
+            }
+          />
+          <Route
+            path="/Favorites"
+            element={<FavoritesCards />}
+          />
 
-        <Route
-          path="*"
-          element={<NewsCards articles={news?.articles} />}
-        />
-      </Routes>
+          <Route
+            path="*"
+            element={
+              <NewsCards articles={news?.articles} />
+            }
+          />
+        </Routes>
+      </div>
     </Router>
   );
 };

@@ -22,8 +22,36 @@
   height: 0px;
 }
 
+@media screen and (min-width: 810px) {
+  .hamburger {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 810px) {
+  .categories {
+    display: none;
+  }
+  .same-line {
+    text-align: left;
+    margin-left: 20px;
+  }
+  .hamburger {
+    margin-top: 7px;
+  }
+
+  .news-cards {
+    margin-left: 20px;
+  }
+}
+
 @media screen and (max-width: 480px) {
   .same-line {
     text-align: left;
+  }
+}
+@media screen and (max-width: 800px) {
+  .news-cards {
+    margin-left: 20px;
   }
 }

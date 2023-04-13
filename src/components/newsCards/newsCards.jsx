@@ -30,11 +30,7 @@ export const NewsCards = (props) => {
       </div>
       <h2>News</h2>
       <div className="news-container">
-        <div className="widget-wrapper">
-          <LatestNewsWidget />
-        </div>
-
-        <div className="container">
+        <div className="card-container">
           {articles
             ?.filter((post) => {
               if (query === '') {
@@ -47,6 +43,7 @@ export const NewsCards = (props) => {
                 return post;
               }
             })
+            .slice(0, 4) // add this to limit to first 4 items
             .map((post, index) => (
               <Cards
                 key={post.title}
@@ -56,7 +53,6 @@ export const NewsCards = (props) => {
                 source={post.source}
               />
             ))}
-
           {arrayItems
             ?.filter((post) => {
               if (query === '') {
@@ -69,9 +65,10 @@ export const NewsCards = (props) => {
                 return post;
               }
             })
+            .slice(0, 4) // add this to limit to first 4 items
             .map((post, index) => (
               <Cards
-                key={post.source?.id}
+                key={post.title}
                 title={post.title}
                 author={post.author}
                 urlToImage={post.urlToImage}
@@ -79,6 +76,56 @@ export const NewsCards = (props) => {
               />
             ))}
         </div>
+
+        <div className="widget-wrapper">
+          <LatestNewsWidget />
+        </div>
+      </div>
+      <div className="card-container">
+        {articles
+          ?.filter((post) => {
+            if (query === '') {
+              return post;
+            } else if (
+              post?.title
+                ?.toLowerCase()
+                .includes(query.toLowerCase())
+            ) {
+              return post;
+            }
+          })
+          .slice(4)
+          .map((post, index) => (
+            <Cards
+              key={post.title}
+              title={post.title}
+              author={post.author}
+              urlToImage={post.urlToImage}
+              source={post.source}
+            />
+          ))}
+        {arrayItems
+          ?.filter((post) => {
+            if (query === '') {
+              return post;
+            } else if (
+              post?.title
+                ?.toLowerCase()
+                .includes(query.toLowerCase())
+            ) {
+              return post;
+            }
+          })
+          .slice(0, 4) // add this to limit to first 4 items
+          .map((post, index) => (
+            <Cards
+              key={post.title}
+              title={post.title}
+              author={post.author}
+              urlToImage={post.urlToImage}
+              source={post.source}
+            />
+          ))}
       </div>
     </div>
   );

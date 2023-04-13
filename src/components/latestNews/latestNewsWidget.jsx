@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import './css/latestNewsWidget.css';
@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { NewsService } from '../../services/news.service';
 import { TopHeadlinesCards } from '../newsCards/topHeadlinesCards';
-import { Box } from '@mui/material';
 
 export const LatestNewsWidget = () => {
   const [headlines, setHeadlines] = useState();
@@ -15,34 +14,31 @@ export const LatestNewsWidget = () => {
   const [displayedArticles, setDisplayedArticles] =
     useState([]);
   const [hasMore, setHasMore] = useState(true);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     newsService.fetchHeadline().then((headline) => {
       setDisplayedArticles(headline.articles);
-      return headline;
-    });
-
-    newsService.fetchTopHeadlines().then((headline) => {
       setHeadlines(headline);
-      return headline;
+      setPage(page + 1);
     });
   }, []);
 
   const fetchMoreData = () => {
     if (
+      !headlines ||
       displayedArticles.length >= headlines.totalResults
     ) {
       setHasMore(false);
       return;
     }
-    newsService
-      .fetchHeadline(displayedArticles.length + 1)
-      .then((newArticles) => {
-        setDisplayedArticles((prevArticles) => [
-          ...prevArticles,
-          ...newArticles.articles,
-        ]);
-      });
+    newsService.fetchHeadline(page).then((newArticles) => {
+      setDisplayedArticles((prevArticles) => [
+        ...prevArticles,
+        ...newArticles.articles,
+      ]);
+      setPage(page + 1);
+    });
   };
 
   return (
@@ -78,7 +74,11 @@ export const LatestNewsWidget = () => {
             dataLength={displayedArticles.length}
             next={fetchMoreData}
             hasMore={hasMore}
-            loader={<h4>Loading...</h4>}
+            loader={
+              <h4 style={{ textAlign: 'center' }}>
+                Loading...
+              </h4>
+            }
             endMessage={
               <p style={{ textAlign: 'center' }}>
                 <b>No more news to show</b>

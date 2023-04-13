@@ -54,7 +54,7 @@ export const Cards = (props) => {
       'items',
       JSON.stringify(updatedItems),
     );
-    setSavedState(false);
+    setSavedState(!savedState);
   };
 
   return (
