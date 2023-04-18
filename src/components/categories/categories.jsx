@@ -56,7 +56,7 @@ export const Categories = () => {
               className="activeButton"
               key={iconItem.title}
             >
-              <NavLink to={iconItem.title} end>
+              <NavLink to={iconItem.title}>
                 <button
                   className="buttons"
                   style={{

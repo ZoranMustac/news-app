@@ -77,7 +77,6 @@ export const Header = () => {
           News
         </h1>
       </div>
-
       <div className="categories">
         <Categories />
       </div>

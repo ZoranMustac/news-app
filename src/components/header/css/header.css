@@ -41,17 +41,12 @@
   }
 
   .news-cards {
-    margin-left: 20px;
+    margin-left: 2%;
   }
 }
 
 @media screen and (max-width: 480px) {
   .same-line {
     text-align: left;
-  }
-}
-@media screen and (max-width: 800px) {
-  .news-cards {
-    margin-left: 20px;
   }
 }

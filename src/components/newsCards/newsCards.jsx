@@ -116,7 +116,7 @@ export const NewsCards = (props) => {
               return post;
             }
           })
-          .slice(0, 4) // add this to limit to first 4 items
+          .slice(4) // add this to limit to first 4 items
           .map((post, index) => (
             <Cards
               key={post.title}
